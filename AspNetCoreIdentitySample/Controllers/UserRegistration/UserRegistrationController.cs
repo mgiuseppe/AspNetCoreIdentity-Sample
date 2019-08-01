@@ -1,5 +1,4 @@
-﻿using AspNetCoreIdentitySample.Entities;
-using AspNetCoreIdentitySample.Models;
+﻿using AspNetCoreIdentitySample.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,9 +9,9 @@ namespace AspNetCoreIdentitySample.Controllers.UserRegistration
 {
     public class UserRegistrationController : Controller
     {
-        private readonly UserManager<MyUserEntity> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserRegistrationController(UserManager<MyUserEntity> userManager)
+        public UserRegistrationController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }
@@ -37,7 +36,7 @@ namespace AspNetCoreIdentitySample.Controllers.UserRegistration
                 else
                 {
                     //create user (NormalizedUsername and Password are populated by UserManager)
-                    user = new MyUserEntity()
+                    user = new IdentityUser()
                     {
                         Id = Guid.NewGuid().ToString(),
                         UserName = model.UserName

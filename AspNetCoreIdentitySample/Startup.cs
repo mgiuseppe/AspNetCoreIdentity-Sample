@@ -1,11 +1,12 @@
-﻿using AspNetCoreIdentitySample.Entities;
-using AspNetCoreIdentitySample.Services;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace AspNetCoreIdentitySample
 {
@@ -24,8 +25,13 @@ namespace AspNetCoreIdentitySample
             services.AddAuthentication("cookies")
                 .AddCookie("cookies", options => options.LoginPath = "/Account/Login");
 
-            services.AddIdentityCore<MyUserEntity>(options => { });
-            services.AddScoped<IUserStore<MyUserEntity>, MyUserStore>();
+            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            services.AddDbContext<IdentityDbContext>(opts =>
+                opts.UseSqlServer(@"Data Source=(localDb)\mssqllocaldb;database=AspNetCoreIdentitySample;Trusted_Connection=True",
+                                  sqlopts => sqlopts.MigrationsAssembly(migrationAssembly)));
+
+            services.AddIdentityCore<IdentityUser>(options => { });
+            services.AddScoped<IUserStore<IdentityUser>, UserOnlyStore<IdentityUser, IdentityDbContext>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

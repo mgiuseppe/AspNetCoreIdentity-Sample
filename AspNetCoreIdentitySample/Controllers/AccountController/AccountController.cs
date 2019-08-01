@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AspNetCoreIdentitySample.Entities;
 using AspNetCoreIdentitySample.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -13,9 +12,9 @@ namespace AspNetCoreIdentitySample.Controllers.AccountController
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<MyUserEntity> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountController(UserManager<MyUserEntity> userManager)
+        public AccountController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }

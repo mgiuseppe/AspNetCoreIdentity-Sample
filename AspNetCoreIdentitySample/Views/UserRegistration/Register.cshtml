@@ -1,0 +1,39 @@
+﻿@model RegisterViewModel
+
+<div class="user-registration-page">
+    <div class="page-header">
+        <h1>User Registration</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <!--<h3 class="panel-title">User Registration</h3>-->
+                </div>
+                <div class="panel-body">
+                    <form asp-route="Login">
+                        <fieldset>
+                            <div class="form-group">
+                                <label asp-for="UserName"></label>
+                                <input class="form-control" placeholder="UserName" asp-for="UserName" autofocus />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input class="form-control" asp-for="Password" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input class="form-control" asp-for="ConfirmPassword" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="submit" />
+                            </div>
+                            <div asp-validation-summary="All"></div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
